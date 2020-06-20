@@ -23,7 +23,8 @@ namespace shariqFaizan.Controllers
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            ProductDB pd = new ProductDB();
+            return View(pd.GetProducts().Find(smodel => smodel.id == id));         
         }
 
         // GET: Product/Create
