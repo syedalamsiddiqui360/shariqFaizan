@@ -31,7 +31,9 @@
             @Html.DisplayNameFor(model => model.path)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.c_id)
+            @*@Html.DisplayNameFor(model => model.c_id)*@
+            <label class="control-label col-md-2"> Category </label>
+
         </th>
         <th></th>
     </tr>
@@ -58,7 +60,7 @@
 
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.c_id)
+             @Html.DisplayFor(modelItem => item.c_id)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

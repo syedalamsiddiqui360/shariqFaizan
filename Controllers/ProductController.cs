@@ -1,6 +1,8 @@
 ﻿using shariqFaizan.Models;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -30,6 +32,18 @@ namespace shariqFaizan.Controllers
         // GET: Product/Create
         public ActionResult Create()
         {
+            
+            CategoryDB Cdb = new CategoryDB();
+            //db = new dbHandle();
+
+            //ViewBag.Hlist = db.ViewHead(ht);
+
+            var li = Cdb.GetCategory();
+            ViewBag.list = li;
+
+
+
+
             return View();
         }
 
@@ -53,10 +67,15 @@ namespace shariqFaizan.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (pd.AddProduct(pro))
                     {
+                    if (pd.AddProduct(pro))
                         ViewBag.Message = "Product Added Successfully";
                         ModelState.Clear();
+
+                        CategoryDB Cdb = new CategoryDB();
+                        var li = Cdb.GetCategory();
+                        ViewBag.list = li;
+
                     }
                 }
                 return View();
@@ -71,10 +90,11 @@ namespace shariqFaizan.Controllers
         public ActionResult Edit(int id)
         {
             ProductDB pd= new ProductDB();
-            //Product thisProduct = pd.GetProducts.Where(p => p.Id == product.Id).FirstOrDefault();
-            //Img = pd.GetProducts().Find(smodel => smodel.id == id).path;
-            //pic = pd.GetProducts().Find(smodel => smodel.id == id).picture;
-            //ImageFile1 = pd.GetProducts().Find(smodel => smodel.id == id).ImageFile;
+
+            CategoryDB Cdb = new CategoryDB();
+            var li = Cdb.GetCategory();
+            ViewBag.list = li;
+
             return View(pd.GetProducts().Find(smodel => smodel.id == id));
         }
 
@@ -108,6 +128,10 @@ namespace shariqFaizan.Controllers
             try
             {
                 ProductDB pdd = new ProductDB();
+                CategoryDB Cdb = new CategoryDB();
+                var li = Cdb.GetCategory();
+                ViewBag.list = li;
+
                 pdd.UpdateProduct(pro);
                 return RedirectToAction("Index");
             }
